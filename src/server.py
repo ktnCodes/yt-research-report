@@ -8,6 +8,7 @@ from mcp.server.fastmcp import FastMCP
 from youtube_transcript_api import YouTubeTranscriptApi
 
 mcp = FastMCP("youtube-transcript")
+ytt_api = YouTubeTranscriptApi()
 
 
 def extract_video_id(url: str) -> str:
@@ -44,11 +45,6 @@ def format_timestamp(seconds: float) -> str:
     return f"{m}:{s:02d}"
 
 
-def seconds_to_url_param(seconds: float) -> int:
-    """Convert seconds to integer for YouTube &t= parameter."""
-    return int(seconds)
-
-
 @mcp.tool()
 def fetch_youtube_transcript(url: str) -> str:
     """Fetch the transcript of a YouTube video.
@@ -65,7 +61,7 @@ def fetch_youtube_transcript(url: str) -> str:
         return json.dumps({"error": str(e)})
 
     try:
-        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        segments = ytt_api.fetch(video_id, languages=["en"])
     except Exception as e:
         error_msg = str(e)
         if "disabled" in error_msg.lower():
@@ -77,19 +73,6 @@ def fetch_youtube_transcript(url: str) -> str:
                 "error": f"Video {video_id} is private or unavailable."
             })
         return json.dumps({"error": f"Could not fetch transcript: {error_msg}"})
-
-    # Prefer manually created transcripts, fall back to auto-generated
-    try:
-        transcript = transcript_list.find_manually_created_transcript(["en"])
-    except Exception:
-        try:
-            transcript = transcript_list.find_generated_transcript(["en"])
-        except Exception:
-            return json.dumps({
-                "error": "No English transcript available for this video."
-            })
-
-    segments = transcript.fetch()
 
     # Build formatted transcript with timestamp markers
     formatted_lines = []
