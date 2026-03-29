@@ -19,14 +19,14 @@ pip install -r requirements.txt
 
 ### 2. Register the MCP server
 
-Add to your project's `.claude/settings.local.json` or user-level `~/.claude/settings.json`:
+Add a `.mcp.json` file at your workspace root (e.g. `C:/Users/kevin/Portfolio/.mcp.json`):
 
 ```json
 {
   "mcpServers": {
     "youtube-transcript": {
       "command": "python",
-      "args": ["C:/Workspace/Projects/yt-research-report/src/server.py"]
+      "args": ["C:/Users/kevin/Portfolio/blog-tools/yt-research-report/src/server.py"]
     }
   }
 }
@@ -34,7 +34,11 @@ Add to your project's `.claude/settings.local.json` or user-level `~/.claude/set
 
 ### 3. Install the skill
 
-Copy `yt-report.md` to `~/.claude/skills/yt-report.md` (already done if you followed the setup plan).
+The skill file lives in the repo at `skill/yt-report.md`. Copy it to your Claude skills directory:
+
+```bash
+cp skill/yt-report.md ~/.claude/skills/yt-report.md
+```
 
 ### 4. Use it
 
