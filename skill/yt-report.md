@@ -32,7 +32,7 @@ Read through the entire formatted transcript and identify:
 
 ## Step 4: Generate the Report
 
-Create the report file at `C:\Users\kevin\Portfolio\portfolio-site\ktncodes.github.io\content\posts\` with a slugified filename based on the video title (e.g., `research-report-video-title.md`).
+Create the report file at `C:\Users\kevin\Workspace\portfolio-site\ktncodes-v2\content\posts\` with a slugified filename based on the video title (e.g., `research-report-video-title.mdx`).
 
 Use this exact format:
 
@@ -41,12 +41,12 @@ Use this exact format:
 title: "Research Report: [Video Title]"
 date: [TODAY'S DATE in YYYY-MM-DD format]
 tags: ["research", "youtube", "[topic-tag]"]
-summary: "Research report based on [Video Title] by [Channel Name]."
-ShowToc: true
+summary: "Research report based on '[Video Title]' by [Channel Name]."
+showToc: true
 ---
 
 ## Video
-{{</* youtube VIDEO_ID */>}}
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/VIDEO_ID" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 **Source:** [Video Title](VIDEO_URL) by [Channel Name]
 
 ---
@@ -81,7 +81,8 @@ ShowToc: true
 
 ## Important Guidelines
 
-- **Hugo shortcode:** Use `{{</* youtube VIDEO_ID */>}}` (just the ID, not the full URL)
+- **Video embed:** Use the `<iframe>` format shown above with `https://www.youtube.com/embed/VIDEO_ID`
+- **File extension:** Always use `.mdx` (not `.md`)
 - **Timestamp links:** Format as `[M:SS](VIDEO_URL&t=Xs)` where X is total seconds
 - **Tone:** Professional and analytical, as if writing a research brief
 - **Length:** The detailed analysis should be substantive — aim for 800-1500 words depending on video length
